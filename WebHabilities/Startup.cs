@@ -24,6 +24,18 @@ namespace WebHabilities
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSwaggerGen(Options =>
+            {
+                Options.SwaggerDoc("v1",
+                    new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Title = "Hability",
+                        Description = "Insert data in formulary",
+                        Version = "v1"
+
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +64,13 @@ namespace WebHabilities
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(Options =>
+            {
+                Options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Hability");
+            }
+            );
         }
     }
 }
